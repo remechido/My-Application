@@ -13,11 +13,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.data.HorarioViewModel
+import com.example.myapplication.viewmodel.ScheduleViewModel
 
 @Composable
-fun HorarioScreen(viewModel: HorarioViewModel = viewModel()) {
-    val horarios = viewModel.horarios
+fun HorarioScreen(viewModel: ScheduleViewModel = viewModel()) {
+    val schedules by viewModel.schedules.collectAsState()
 
     Column(
         modifier = Modifier
@@ -47,15 +47,15 @@ fun HorarioScreen(viewModel: HorarioViewModel = viewModel()) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        horarios.forEach { aula ->
+        schedules.forEach { schedule ->
             Row(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
                 listOf(
-                    aula.horario,
-                    aula.segunda,
-                    aula.terca,
-                    aula.quarta,
-                    aula.quinta,
-                    aula.sexta
+                    schedule.timeSlot,
+                    schedule.monday,
+                    schedule.tuesday,
+                    schedule.wednesday,
+                    schedule.thursday,
+                    schedule.friday
                 ).forEach { item ->
                     Box(
                         contentAlignment = Alignment.Center,
@@ -65,9 +65,26 @@ fun HorarioScreen(viewModel: HorarioViewModel = viewModel()) {
                             .border(1.dp, Color(0xFF81C784), RoundedCornerShape(4.dp))
                             .background(Color.White)
                     ) {
-                        Text(text = item, fontSize = 14.sp)
+                        Text(
+                            text = item, 
+                            fontSize = 12.sp,
+                            maxLines = 2
+                        )
                     }
                 }
+            }
+        }
+        
+        if (schedules.isEmpty()) {
+            Box(
+                modifier = Modifier.fillMaxWidth().padding(32.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Nenhum horário disponível",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.Gray
+                )
             }
         }
     }

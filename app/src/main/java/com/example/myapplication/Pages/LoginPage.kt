@@ -10,17 +10,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication.viewmodel.AuthViewModel
 
 @Composable
-fun LoginPage(onLogin: (utilizador: String, senha: String) -> Unit) {
+fun LoginPage(
+    onLoginSuccess: (isAdmin: Boolean) -> Unit,
+    authViewModel: AuthViewModel = viewModel()
+) {
     var utilizador by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
-    var errorMessage by remember { mutableStateOf("") }
+    
+    // Observar estados do ViewModel
+    val currentUser by authViewModel.currentUser.collectAsState()
+    val isLoading by authViewModel.isLoading.collectAsState()
+    val errorMessage by authViewModel.errorMessage.collectAsState()
+    
+    // Efeito para navegar quando login é bem-sucedido
+    LaunchedEffect(currentUser) {
+        currentUser?.let { user ->
+            onLoginSuccess(user.isAdmin)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -77,12 +94,13 @@ fun LoginPage(onLogin: (utilizador: String, senha: String) -> Unit) {
         Button(
             onClick = {
                 if (utilizador.isBlank() || senha.isBlank()) {
-                    errorMessage = "Preencha todos os campos"
+                    // Mensagem será gerida pelo ViewModel
                 } else {
-                    errorMessage = ""
-                    onLogin(utilizador, senha)
+                    authViewModel.clearError()
+                    authViewModel.login(utilizador, senha)
                 }
             },
+            enabled = !isLoading, // Desativar durante loading
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -90,12 +108,20 @@ fun LoginPage(onLogin: (utilizador: String, senha: String) -> Unit) {
             shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
         ) {
-            Text(text = "Entrar", style = MaterialTheme.typography.titleMedium, color = Color.White)
+            if (isLoading) {
+                CircularProgressIndicator(
+                    color = Color.White,
+                    modifier = Modifier.size(20.dp)
+                )
+            } else {
+                Text(text = "Entrar", style = MaterialTheme.typography.titleMedium, color = Color.White)
+            }
         }
 
-        if (errorMessage.isNotEmpty()) {
+        // Mostrar mensagem de erro se existir
+        errorMessage?.let { error ->
             Spacer(modifier = Modifier.height(16.dp))
-            Text(errorMessage, color = MaterialTheme.colorScheme.error)
+            Text(error, color = MaterialTheme.colorScheme.error)
         }
     }
 }

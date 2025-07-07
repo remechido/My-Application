@@ -54,12 +54,14 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
-    implementation ("androidx.compose.material3:material3:<version>")
 
     // Room
     implementation("androidx.room:room-runtime:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
     kapt("androidx.room:room-compiler:2.5.2")
+    
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 
     // Testes
     testImplementation(libs.junit)
@@ -79,6 +81,9 @@ dependencies {
     implementation ("androidx.activity:activity-compose:1.8.2")
     implementation("io.coil-kt:coil-compose:2.2.2")
     implementation ("androidx.compose.material:material-icons-extended:1.4.0")
+    implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
 
 }
 

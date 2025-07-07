@@ -1,0 +1,367 @@
+{
+    "checksum": "5c1c32292d1f9a8d6223b3b15afc46931d01a34587e67f29f1ca10f3d784b588",
+    "data": {
+    "id": "7343920c-ac63-42ce-bd2f-389f9348b940",
+    "createdAt": 1750849523888,
+    "updatedAt": 1750849555642,
+    "title": "Sistema de Login com SQLite",
+    "messages": [
+        {
+            "id": "d76ed468-28de-4071-ad39-270317fcabdb",
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "quero criar uma base de dados para o meu projecto onde o login funcione o admin vai registar os utilixzadores criado nome de user e oassword"
+                }
+            ],
+            "context": {
+                "currentFile": {
+                    "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                    "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                    "sources": [
+                        "opened_tab"
+                    ],
+                    "content": "package com.example.myapplication.Pages\r\n\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.border\r\nimport androidx.compose.foundation.gestures.detectTapGestures\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.foundation.text.BasicTextField\r\nimport androidx.compose.material3.*\r\nimport androidx.compose.runtime.*\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.graphics.Brush\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.input.pointer.pointerInput\r\nimport androidx.compose.ui.text.font.FontWeight\r\nimport androidx.compose.ui.text.input.PasswordVisualTransformation\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.navigation.NavController\r\nimport com.example.myapplication.navigation.Routes\r\nimport kotlinx.coroutines.*\r\n\r\n@Composable\r\nfun LoginPage(navController: NavController) {\r\n    var email by remember { mutableStateOf(\"\") }\r\n    var password by remember { mutableStateOf(\"\") }\r\n    var buttonBackgroundColor by remember { mutableStateOf(Color(0xFF388E3C)) }\r\n    var emailBorderColor by remember { mutableStateOf(Color.Gray) }\r\n    var passwordBorderColor by remember { mutableStateOf(Color.Gray) }\r\n\r\n    Box(\r\n        modifier = Modifier\r\n            .fillMaxSize()\r\n            .background(\r\n                brush = Brush.verticalGradient(\r\n                    colors = listOf(\r\n                        Color(0xFFA5D6A7),\r\n                        Color(0xFF81C784)\r\n                    )\r\n                )\r\n            )\r\n            .padding(horizontal = 32.dp),\r\n        contentAlignment = Alignment.Center\r\n    ) {\r\n        Column(\r\n            horizontalAlignment = Alignment.CenterHorizontally,\r\n            verticalArrangement = Arrangement.spacedBy(20.dp),\r\n            modifier = Modifier.fillMaxWidth()\r\n        ) {\r\n            Text(\r\n                text = \"Bem-vindo ao Portal Acadêmico\",\r\n                style = MaterialTheme.typography.headlineMedium,\r\n                color = Color(0xFF1B5E20),\r\n                fontWeight = FontWeight.Bold\r\n            )\r\n\r\n            OutlinedTextField(\r\n                value = email,\r\n                onValueChange = { email = it },\r\n                label = { Text(\"Email Institucional\") },\r\n                singleLine = true,\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .border(1.dp, emailBorderColor)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                emailBorderColor = Color.White\r\n                                tryAwaitRelease()\r\n                                emailBorderColor = Color.Gray\r\n                            }\r\n                        )\r\n                    }\r\n            )\r\n\r\n            OutlinedTextField(\r\n                value = password,\r\n                onValueChange = { password = it },\r\n                label = { Text(\"Senha\") },\r\n                singleLine = true,\r\n                visualTransformation = PasswordVisualTransformation(),\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .border(1.dp, passwordBorderColor)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                passwordBorderColor = Color.White\r\n                                tryAwaitRelease()\r\n                                passwordBorderColor = Color.Gray\r\n                            }\r\n                        )\r\n                    }\r\n            )\r\n\r\n            Button(\r\n                onClick = {\r\n                    if (email == \"admin\" && password == \"1234\") {\r\n                        navController.navigate(Routes.ADMIN_SCREEN) {\r\n                            popUpTo(Routes.LOGIN) { inclusive = true }\r\n                        }\r\n                    } else {\r\n                        navController.navigate(Routes.HOME_SCREEN) {\r\n                            popUpTo(Routes.LOGIN) { inclusive = true }\r\n                        }\r\n                    }\r\n                },\r\n                enabled = email.isNotBlank() && password.isNotBlank(),\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                buttonBackgroundColor = Color.White\r\n                                tryAwaitRelease()\r\n                                buttonBackgroundColor = Color(0xFF388E3C)\r\n                            }\r\n                        )\r\n                    },\r\n                colors = ButtonDefaults.buttonColors(containerColor = buttonBackgroundColor)\r\n            ) {\r\n                Text(\"Entrar\", color = Color.White)\r\n            }\r\n        }\r\n    }\r\n}\r\n"
+                },
+                "codebaseEnabled": true,
+                "ragFiles": [
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\routes\\Routes.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\routes\\Routes.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\routes\\AppNavHost.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\routes\\AppNavHost.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\build.gradle.kts",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\build.gradle.kts",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\PerfilScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\PerfilScreen.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\res\\values\\strings.xml",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\res\\values\\strings.xml",
+                        "sources": []
+                    },
+                    {
+                        "path": "gradle\\libs.versions.toml",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\gradle\\libs.versions.toml",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\res\\values\\themes.xml",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\res\\values\\themes.xml",
+                        "sources": []
+                    },
+                    {
+                        "path": "gradle\\wrapper\\gradle-wrapper.properties",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\gradle\\wrapper\\gradle-wrapper.properties",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\AndroidManifest.xml",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\AndroidManifest.xml",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\UsuariosScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\UsuariosScreen.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/ui/theme/PerfilScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\PerfilScreen.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/ui/theme/HomePage.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\HomePage.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/Pages/LoginPage.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/routes/Routes.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\routes\\Routes.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/Pages/AdminScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/routes/AppNavHost.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\routes\\AppNavHost.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/ui/theme/HomeScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\HomeScreen.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/ui/theme/MensagensScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\MensagensScreen.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/MainActivity.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\MainActivity.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    }
+                ],
+                "rerankedFiles": [
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt",
+                        "fsPath": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt"
+                    }
+                ],
+                "usedFilePaths": [
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                        "sources": [
+                            "opened_tab"
+                        ],
+                        "content": "package com.example.myapplication.Pages\r\n\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.border\r\nimport androidx.compose.foundation.gestures.detectTapGestures\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.foundation.text.BasicTextField\r\nimport androidx.compose.material3.*\r\nimport androidx.compose.runtime.*\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.graphics.Brush\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.input.pointer.pointerInput\r\nimport androidx.compose.ui.text.font.FontWeight\r\nimport androidx.compose.ui.text.input.PasswordVisualTransformation\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.navigation.NavController\r\nimport com.example.myapplication.navigation.Routes\r\nimport kotlinx.coroutines.*\r\n\r\n@Composable\r\nfun LoginPage(navController: NavController) {\r\n    var email by remember { mutableStateOf(\"\") }\r\n    var password by remember { mutableStateOf(\"\") }\r\n    var buttonBackgroundColor by remember { mutableStateOf(Color(0xFF388E3C)) }\r\n    var emailBorderColor by remember { mutableStateOf(Color.Gray) }\r\n    var passwordBorderColor by remember { mutableStateOf(Color.Gray) }\r\n\r\n    Box(\r\n        modifier = Modifier\r\n            .fillMaxSize()\r\n            .background(\r\n                brush = Brush.verticalGradient(\r\n                    colors = listOf(\r\n                        Color(0xFFA5D6A7),\r\n                        Color(0xFF81C784)\r\n                    )\r\n                )\r\n            )\r\n            .padding(horizontal = 32.dp),\r\n        contentAlignment = Alignment.Center\r\n    ) {\r\n        Column(\r\n            horizontalAlignment = Alignment.CenterHorizontally,\r\n            verticalArrangement = Arrangement.spacedBy(20.dp),\r\n            modifier = Modifier.fillMaxWidth()\r\n        ) {\r\n            Text(\r\n                text = \"Bem-vindo ao Portal Acadêmico\",\r\n                style = MaterialTheme.typography.headlineMedium,\r\n                color = Color(0xFF1B5E20),\r\n                fontWeight = FontWeight.Bold\r\n            )\r\n\r\n            OutlinedTextField(\r\n                value = email,\r\n                onValueChange = { email = it },\r\n                label = { Text(\"Email Institucional\") },\r\n                singleLine = true,\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .border(1.dp, emailBorderColor)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                emailBorderColor = Color.White\r\n                                tryAwaitRelease()\r\n                                emailBorderColor = Color.Gray\r\n                            }\r\n                        )\r\n                    }\r\n            )\r\n\r\n            OutlinedTextField(\r\n                value = password,\r\n                onValueChange = { password = it },\r\n                label = { Text(\"Senha\") },\r\n                singleLine = true,\r\n                visualTransformation = PasswordVisualTransformation(),\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .border(1.dp, passwordBorderColor)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                passwordBorderColor = Color.White\r\n                                tryAwaitRelease()\r\n                                passwordBorderColor = Color.Gray\r\n                            }\r\n                        )\r\n                    }\r\n            )\r\n\r\n            Button(\r\n                onClick = {\r\n                    if (email == \"admin\" && password == \"1234\") {\r\n                        navController.navigate(Routes.ADMIN_SCREEN) {\r\n                            popUpTo(Routes.LOGIN) { inclusive = true }\r\n                        }\r\n                    } else {\r\n                        navController.navigate(Routes.HOME_SCREEN) {\r\n                            popUpTo(Routes.LOGIN) { inclusive = true }\r\n                        }\r\n                    }\r\n                },\r\n                enabled = email.isNotBlank() && password.isNotBlank(),\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                buttonBackgroundColor = Color.White\r\n                                tryAwaitRelease()\r\n                                buttonBackgroundColor = Color(0xFF388E3C)\r\n                            }\r\n                        )\r\n                    },\r\n                colors = ButtonDefaults.buttonColors(containerColor = buttonBackgroundColor)\r\n            ) {\r\n                Text(\"Entrar\", color = Color.White)\r\n            }\r\n        }\r\n    }\r\n}\r\n"
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt",
+                        "fsPath": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt"
+                    }
+                ]
+            },
+            "createdAt": 1750849524089,
+            "isInternal": false,
+            "rawContent": {
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "paragraph",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "quero criar uma base de dados para o meu projecto onde o login funcione o admin vai registar os utilixzadores criado nome de user e oassword"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "9926d910-3ca5-444b-8ca9-a6bbf7a834e6",
+            "role": "assistant",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "Para criar uma base de dados para o seu projeto onde o login funcione e o administrador possa registrar usuários, você precisará de algumas etapas adicionais além do que já está implementado no seu código. Vou guiá-lo através do processo de configuração de um banco de dados simples usando SQLite, que é uma escolha comum para aplicativos Android.\n\n### Passos para Implementar o Banco de Dados\n\n1. **Adicionar Dependência do SQLite:**\n   Certifique-se de que o seu projeto está configurado para usar o SQLite. Normalmente, o SQLite já está incluído no Android, mas você pode precisar adicionar dependências adicionais se estiver usando bibliotecas específicas.\n\n2. **Criar uma Classe de Helper para o Banco de Dados:**\n   Crie uma classe que estenda `SQLiteOpenHelper` para gerenciar a criação e atualização do banco de dados.\n\n   ```kotlin\n   import android.content.Context\n   import android.database.sqlite.SQLiteDatabase\n   import android.database.sqlite.SQLiteOpenHelper\n\n   class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {\n\n       override fun onCreate(db: SQLiteDatabase) {\n           val createTable = (\"CREATE TABLE \" + TABLE_USERS + \"(\"\n                   + COLUMN_ID + \" INTEGER PRIMARY KEY AUTOINCREMENT,\"\n                   + COLUMN_EMAIL + \" TEXT,\"\n                   + COLUMN_PASSWORD + \" TEXT\" + \")\")\n           db.execSQL(createTable)\n       }\n\n       override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {\n           db.execSQL(\"DROP TABLE IF EXISTS $TABLE_USERS\")\n           onCreate(db)\n       }\n\n       companion object {\n           private const val DATABASE_VERSION = 1\n           private const val DATABASE_NAME = \"usersManager\"\n           private const val TABLE_USERS = \"users\"\n           private const val COLUMN_ID = \"id\"\n           private const val COLUMN_EMAIL = \"email\"\n           private const val COLUMN_PASSWORD = \"password\"\n       }\n   }\n   ```\n\n3. **Adicionar Funções para Inserir e Verificar Usuários:**\n   Dentro da sua classe `DatabaseHelper`, adicione métodos para inserir novos usuários e verificar logins.\n\n   ```kotlin\n   fun addUser(email: String, password: String) {\n       val db = this.writableDatabase\n       val values = ContentValues()\n       values.put(COLUMN_EMAIL, email)\n       values.put(COLUMN_PASSWORD, password)\n       db.insert(TABLE_USERS, null, values)\n       db.close()\n   }\n\n   fun checkUser(email: String, password: String): Boolean {\n       val db = this.readableDatabase\n       val cursor = db.query(TABLE_USERS, arrayOf(COLUMN_ID), \"$COLUMN_EMAIL=? AND $COLUMN_PASSWORD=?\",\n           arrayOf(email, password), null, null, null)\n       val count = cursor.count\n       cursor.close()\n       db.close()\n       return count > 0\n   }\n   ```\n\n4. **Integrar com a Interface de Usuário:**\n   No seu `LoginPage.kt`, você pode usar o `DatabaseHelper` para verificar o login.\n\n   ```kotlin\n   val dbHelper = DatabaseHelper(context)\n\n   Button(\n       onClick = {\n           if (dbHelper.checkUser(email, password)) {\n               navController.navigate(Routes.HOME_SCREEN) {\n                   popUpTo(Routes.LOGIN) { inclusive = true }\n               }\n           } else {\n               // Mostrar mensagem de erro\n           }\n       },\n       // Resto do código...\n   )\n   ```\n\n5. **Registrar Usuários no AdminScreen:**\n   No `AdminScreen.kt`, use o método `addUser` para registrar novos usuários.\n\n   ```kotlin\n   Button(onClick = {\n       if(email.isNotBlank() && password.isNotBlank()) {\n           dbHelper.addUser(email, password)\n           message = \"Usuário criado: $email\"\n       } else {\n           message = \"Preencha todos os campos.\"\n       }\n   }) {\n       Text(\"Criar Usuário\")\n   }\n   ```\n\nCom essas etapas, você terá um sistema básico de login e registro de usuários usando SQLite no seu aplicativo Android. Certifique-se de testar adequadamente e considerar a segurança, especialmente ao lidar com senhas."
+                }
+            ],
+            "context": {
+                "currentFile": {
+                    "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                    "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                    "sources": [
+                        "opened_tab"
+                    ],
+                    "content": "package com.example.myapplication.Pages\r\n\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.border\r\nimport androidx.compose.foundation.gestures.detectTapGestures\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.foundation.text.BasicTextField\r\nimport androidx.compose.material3.*\r\nimport androidx.compose.runtime.*\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.graphics.Brush\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.input.pointer.pointerInput\r\nimport androidx.compose.ui.text.font.FontWeight\r\nimport androidx.compose.ui.text.input.PasswordVisualTransformation\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.navigation.NavController\r\nimport com.example.myapplication.navigation.Routes\r\nimport kotlinx.coroutines.*\r\n\r\n@Composable\r\nfun LoginPage(navController: NavController) {\r\n    var email by remember { mutableStateOf(\"\") }\r\n    var password by remember { mutableStateOf(\"\") }\r\n    var buttonBackgroundColor by remember { mutableStateOf(Color(0xFF388E3C)) }\r\n    var emailBorderColor by remember { mutableStateOf(Color.Gray) }\r\n    var passwordBorderColor by remember { mutableStateOf(Color.Gray) }\r\n\r\n    Box(\r\n        modifier = Modifier\r\n            .fillMaxSize()\r\n            .background(\r\n                brush = Brush.verticalGradient(\r\n                    colors = listOf(\r\n                        Color(0xFFA5D6A7),\r\n                        Color(0xFF81C784)\r\n                    )\r\n                )\r\n            )\r\n            .padding(horizontal = 32.dp),\r\n        contentAlignment = Alignment.Center\r\n    ) {\r\n        Column(\r\n            horizontalAlignment = Alignment.CenterHorizontally,\r\n            verticalArrangement = Arrangement.spacedBy(20.dp),\r\n            modifier = Modifier.fillMaxWidth()\r\n        ) {\r\n            Text(\r\n                text = \"Bem-vindo ao Portal Acadêmico\",\r\n                style = MaterialTheme.typography.headlineMedium,\r\n                color = Color(0xFF1B5E20),\r\n                fontWeight = FontWeight.Bold\r\n            )\r\n\r\n            OutlinedTextField(\r\n                value = email,\r\n                onValueChange = { email = it },\r\n                label = { Text(\"Email Institucional\") },\r\n                singleLine = true,\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .border(1.dp, emailBorderColor)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                emailBorderColor = Color.White\r\n                                tryAwaitRelease()\r\n                                emailBorderColor = Color.Gray\r\n                            }\r\n                        )\r\n                    }\r\n            )\r\n\r\n            OutlinedTextField(\r\n                value = password,\r\n                onValueChange = { password = it },\r\n                label = { Text(\"Senha\") },\r\n                singleLine = true,\r\n                visualTransformation = PasswordVisualTransformation(),\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .border(1.dp, passwordBorderColor)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                passwordBorderColor = Color.White\r\n                                tryAwaitRelease()\r\n                                passwordBorderColor = Color.Gray\r\n                            }\r\n                        )\r\n                    }\r\n            )\r\n\r\n            Button(\r\n                onClick = {\r\n                    if (email == \"admin\" && password == \"1234\") {\r\n                        navController.navigate(Routes.ADMIN_SCREEN) {\r\n                            popUpTo(Routes.LOGIN) { inclusive = true }\r\n                        }\r\n                    } else {\r\n                        navController.navigate(Routes.HOME_SCREEN) {\r\n                            popUpTo(Routes.LOGIN) { inclusive = true }\r\n                        }\r\n                    }\r\n                },\r\n                enabled = email.isNotBlank() && password.isNotBlank(),\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                buttonBackgroundColor = Color.White\r\n                                tryAwaitRelease()\r\n                                buttonBackgroundColor = Color(0xFF388E3C)\r\n                            }\r\n                        )\r\n                    },\r\n                colors = ButtonDefaults.buttonColors(containerColor = buttonBackgroundColor)\r\n            ) {\r\n                Text(\"Entrar\", color = Color.White)\r\n            }\r\n        }\r\n    }\r\n}\r\n"
+                },
+                "codebaseEnabled": true,
+                "ragFiles": [
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\routes\\Routes.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\routes\\Routes.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\routes\\AppNavHost.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\routes\\AppNavHost.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\build.gradle.kts",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\build.gradle.kts",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\PerfilScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\PerfilScreen.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\res\\values\\strings.xml",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\res\\values\\strings.xml",
+                        "sources": []
+                    },
+                    {
+                        "path": "gradle\\libs.versions.toml",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\gradle\\libs.versions.toml",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\res\\values\\themes.xml",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\res\\values\\themes.xml",
+                        "sources": []
+                    },
+                    {
+                        "path": "gradle\\wrapper\\gradle-wrapper.properties",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\gradle\\wrapper\\gradle-wrapper.properties",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\AndroidManifest.xml",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\AndroidManifest.xml",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\UsuariosScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\UsuariosScreen.kt",
+                        "sources": []
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/ui/theme/PerfilScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\PerfilScreen.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/ui/theme/HomePage.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\HomePage.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/Pages/LoginPage.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/routes/Routes.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\routes\\Routes.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/Pages/AdminScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/routes/AppNavHost.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\routes\\AppNavHost.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/ui/theme/HomeScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\HomeScreen.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/ui/theme/MensagensScreen.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\ui\\theme\\MensagensScreen.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    },
+                    {
+                        "path": "app/src/main/java/com/example/myapplication/MainActivity.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\MainActivity.kt",
+                        "sources": [
+                            "opened_tab"
+                        ]
+                    }
+                ],
+                "rerankedFiles": [
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt",
+                        "fsPath": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt"
+                    }
+                ],
+                "usedFilePaths": [
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                        "fsPath": "C:\\Users\\joaoc\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\java\\com\\example\\myapplication\\Pages\\LoginPage.kt",
+                        "sources": [
+                            "opened_tab"
+                        ],
+                        "content": "package com.example.myapplication.Pages\r\n\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.border\r\nimport androidx.compose.foundation.gestures.detectTapGestures\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.foundation.text.BasicTextField\r\nimport androidx.compose.material3.*\r\nimport androidx.compose.runtime.*\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.graphics.Brush\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.input.pointer.pointerInput\r\nimport androidx.compose.ui.text.font.FontWeight\r\nimport androidx.compose.ui.text.input.PasswordVisualTransformation\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.navigation.NavController\r\nimport com.example.myapplication.navigation.Routes\r\nimport kotlinx.coroutines.*\r\n\r\n@Composable\r\nfun LoginPage(navController: NavController) {\r\n    var email by remember { mutableStateOf(\"\") }\r\n    var password by remember { mutableStateOf(\"\") }\r\n    var buttonBackgroundColor by remember { mutableStateOf(Color(0xFF388E3C)) }\r\n    var emailBorderColor by remember { mutableStateOf(Color.Gray) }\r\n    var passwordBorderColor by remember { mutableStateOf(Color.Gray) }\r\n\r\n    Box(\r\n        modifier = Modifier\r\n            .fillMaxSize()\r\n            .background(\r\n                brush = Brush.verticalGradient(\r\n                    colors = listOf(\r\n                        Color(0xFFA5D6A7),\r\n                        Color(0xFF81C784)\r\n                    )\r\n                )\r\n            )\r\n            .padding(horizontal = 32.dp),\r\n        contentAlignment = Alignment.Center\r\n    ) {\r\n        Column(\r\n            horizontalAlignment = Alignment.CenterHorizontally,\r\n            verticalArrangement = Arrangement.spacedBy(20.dp),\r\n            modifier = Modifier.fillMaxWidth()\r\n        ) {\r\n            Text(\r\n                text = \"Bem-vindo ao Portal Acadêmico\",\r\n                style = MaterialTheme.typography.headlineMedium,\r\n                color = Color(0xFF1B5E20),\r\n                fontWeight = FontWeight.Bold\r\n            )\r\n\r\n            OutlinedTextField(\r\n                value = email,\r\n                onValueChange = { email = it },\r\n                label = { Text(\"Email Institucional\") },\r\n                singleLine = true,\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .border(1.dp, emailBorderColor)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                emailBorderColor = Color.White\r\n                                tryAwaitRelease()\r\n                                emailBorderColor = Color.Gray\r\n                            }\r\n                        )\r\n                    }\r\n            )\r\n\r\n            OutlinedTextField(\r\n                value = password,\r\n                onValueChange = { password = it },\r\n                label = { Text(\"Senha\") },\r\n                singleLine = true,\r\n                visualTransformation = PasswordVisualTransformation(),\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .border(1.dp, passwordBorderColor)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                passwordBorderColor = Color.White\r\n                                tryAwaitRelease()\r\n                                passwordBorderColor = Color.Gray\r\n                            }\r\n                        )\r\n                    }\r\n            )\r\n\r\n            Button(\r\n                onClick = {\r\n                    if (email == \"admin\" && password == \"1234\") {\r\n                        navController.navigate(Routes.ADMIN_SCREEN) {\r\n                            popUpTo(Routes.LOGIN) { inclusive = true }\r\n                        }\r\n                    } else {\r\n                        navController.navigate(Routes.HOME_SCREEN) {\r\n                            popUpTo(Routes.LOGIN) { inclusive = true }\r\n                        }\r\n                    }\r\n                },\r\n                enabled = email.isNotBlank() && password.isNotBlank(),\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .padding(vertical = 8.dp)\r\n                    .pointerInput(Unit) {\r\n                        detectTapGestures(\r\n                            onPress = {\r\n                                buttonBackgroundColor = Color.White\r\n                                tryAwaitRelease()\r\n                                buttonBackgroundColor = Color(0xFF388E3C)\r\n                            }\r\n                        )\r\n                    },\r\n                colors = ButtonDefaults.buttonColors(containerColor = buttonBackgroundColor)\r\n            ) {\r\n                Text(\"Entrar\", color = Color.White)\r\n            }\r\n        }\r\n    }\r\n}\r\n"
+                    },
+                    {
+                        "path": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt",
+                        "fsPath": "app\\src\\main\\java\\com\\example\\myapplication\\Pages\\AdminScreen.kt"
+                    }
+                ]
+            },
+            "createdAt": 1750849555642,
+            "isInternal": false
+        }
+    ],
+    "isAgent": false,
+    "isNameGenerated": true,
+    "isCustomAgent": false,
+    "isUnitTestsAgent": false,
+    "isE2EAgent": false,
+    "autoApply": false
+}
+}

@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,16 +7,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,9 +42,10 @@ data class ChatMessage(
 
 data class ChatUser(
     val name: String,
-    val avatar: Int
+    val avatar: Int = 0
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MensagensScreen(
     username: String, 
@@ -55,8 +53,8 @@ fun MensagensScreen(
     alertViewModel: AlertViewModel = viewModel()
 ) {
     val users = listOf(
-        ChatUser("João Carapuça", R.drawable.ic_launcher_foreground),
-        ChatUser("David Destapado", R.drawable.ic_launcher_foreground)
+        ChatUser("João Carapuça"),
+        ChatUser("David Destapado")
     )
 
     val grupos = listOf("SI", "TW", "Design")
@@ -118,15 +116,19 @@ fun MensagensScreen(
                         Icon(Icons.Default.AccountCircle, contentDescription = null, tint = Color.White)
                     }
                 },
-                backgroundColor = COLOR_PRIMARY
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = COLOR_PRIMARY)
             )
         },
-        backgroundColor = COLOR_BACKGROUND
+        containerColor = COLOR_BACKGROUND
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
 
             if (chatSelecionado == null && grupoSelecionado == null) {
-                TabRow(selectedTabIndex = tabIndex, backgroundColor = Color.White) {
+                TabRow(
+                    selectedTabIndex = tabIndex, 
+                    containerColor = Color.White,
+                    contentColor = COLOR_PRIMARY
+                ) {
                     listOf("Chats", "Grupos", "Alertas").forEachIndexed { index, title ->
                         Tab(
                             selected = tabIndex == index,
@@ -142,7 +144,7 @@ fun MensagensScreen(
                     }
                 }
             }
-/*perguntar ao stor o porque deste erro  mas nao esta a afetar o codigo abaixo que é do chat*/
+
             when {
                 chatSelecionado != null -> {
                     val msgs = mensagensUsuarios[chatSelecionado!!.name] ?: mutableStateListOf()
@@ -337,18 +339,7 @@ fun ChatUserItem(user: ChatUser, onClick: () -> Unit) {
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Ícone redondo representando o avatar - substituir por Image depois nao esquecer de remover a linha superior
-        /*
-        Image(
-            painter = painterResource(id = user.nome da img ),
-            contentDescription = null,
-            modifier = Modifier
-                .size(48.dp)
-                .clip(CircleShape),
-            contentScale = ContentScale.Crop
-        )
-        */
-        // Ícone padrão para avatar (exemplo) - usar enquanto não tem imagem real
+        // Ícone padrão para avatar
         Icon(
             imageVector = Icons.Default.Person,
             contentDescription = "Avatar",
@@ -368,7 +359,6 @@ fun ChatUserItem(user: ChatUser, onClick: () -> Unit) {
     }
 }
 
-
 @Composable
 fun GroupItem(grupo: String, onClick: (String) -> Unit) {
     Card(
@@ -376,8 +366,8 @@ fun GroupItem(grupo: String, onClick: (String) -> Unit) {
             .fillMaxWidth()
             .padding(6.dp)
             .clickable { onClick(grupo) },
-        elevation = 4.dp,
-        backgroundColor = Color.White,
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
         shape = RoundedCornerShape(12.dp)
     ) {
         Row(

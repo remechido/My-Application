@@ -257,39 +257,3 @@ fun HomeScreen(
         }
     }
 }
-            )
-        }
-    }
-}
-
-// Tela principal
-@Composable
-fun HomeScreen() {
-    val postList = listOf(
-        Post("prof.joao", "Discussão sobre a teoria da relatividade 📚"),
-        Post("dr.ana", "Novo artigo publicado sobre IA 🤖"),
-        Post("maria.research", "Resultados interessantes do nosso estudo 🌱")
-    )
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFE8F5E9))
-    ) {
-        InstagramTopBar()
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            contentPadding = PaddingValues(bottom = 16.dp)
-        ) {
-            items(postList) { post ->
-                AcademicPostItem(post)
-            }
-        }
-    }
-}

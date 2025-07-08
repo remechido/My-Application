@@ -6,7 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Schedule // Ícone para "horário"
+import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,7 +23,6 @@ import com.example.myapplication.ui.screens.HorarioScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.viewmodel.AuthViewModel
 
-
 data class BottomNavItem(val label: String, val icon: ImageVector, val route: String)
 
 @Composable
@@ -38,7 +37,6 @@ fun HomePage(
         BottomNavItem("Mensagens", Icons.Default.Email, Routes.MENSAGENS),
         BottomNavItem("Horário", Icons.Default.Schedule, Routes.HORARIO),
         BottomNavItem("Perfil", Icons.Default.Person, Routes.PERFIL)
-
     )
 
     Scaffold(

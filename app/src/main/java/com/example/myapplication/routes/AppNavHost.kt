@@ -10,7 +10,7 @@ import com.example.myapplication.Pages.LoginPage
 import com.example.myapplication.HomePage
 import com.example.myapplication.MensagensScreen
 import com.example.myapplication.PerfilScreen
-import com.example.myapplication.navigation.Routes
+import com.example.myapplication.routes.Routes
 import com.example.myapplication.viewmodel.AuthViewModel
 
 @Composable
@@ -49,9 +49,8 @@ fun AppNavHost(navController: NavHostController) {
         }
 
         composable(Routes.HOME_SCREEN) {
-            HomePage(navController)
+            HomePage(navController, authViewModel)
         }
-
 
         composable("chat/{usuario}") { backStackEntry ->
             val usuario = backStackEntry.arguments?.getString("usuario") ?: "Desconhecido"
